@@ -21,7 +21,7 @@ import model
 import shapenetdataset as ds
 
 
-pth2 = "../datas/dataset2/"
+pth2 = "../datas/dataset/"
 
 
 def prvox(vox, count, pl):
@@ -78,16 +78,16 @@ def main():
 	voxsize = 32
 	wvecsize = 200
 	ws = 150
-	batch_size = 100
+	batch_size = 50
 	epoch = 1000
 	lr_g = 0.0025
 	lr_d = 1e-5
 	data_pc = 1000
 	pr = 15
 	
-	ds_l = ds.load_data(voxsize, False, data_pc)
+	ds_l = ds.load_data(voxsize, True, data_pc)
 	print('Datas: ' + str(ds_l))
-	n_train = int(ds_l * 0.97)
+	n_train = int(ds_l * 0.9)
 	n_test = ds_l - n_train
 	n_train = n_train - (n_train%batch_size)
 	n_test = n_test - (n_test%batch_size)
@@ -239,12 +239,12 @@ def main():
 		
 			
 			count += 1
-			print('Training log: {} epoch ({} data) lr/DLoss:{} lr/GLoss:{}'.format(e+1, count*batch_size, (str(c_lrd*100000)[0:5]+"e-5", str(loss_netD.item())[0:6]), (str(c_lrg)[0:6], str(loss_netG.item())[0:6])),end='  ')
+			print('Training log: {} epoch ({} data) lr/DLoss:{} lr/GLoss:{}'.format(e, count*batch_size, (str(c_lrd*100000)[0:5]+"e-5", str(loss_netD.item())[0:6]), (str(c_lrg)[0:6], str(loss_netG.item())[0:6])),end='  ')
 			
 			data, target ,fdata = None, None, None
 			gc.collect()
 		
-		print("\rEpoch: "+str(e+1)+" trained score is " + "Dloss:" + str(Dloss/count) + " Gloss:" + str(Gloss/count) + "                         ")
+		print("\rEpoch: "+str(e)+" trained score is " + "Dloss:" + str(Dloss/count) + " Gloss:" + str(Gloss/count) + "                         ")
 		history['Dtrain_loss'].append(Dloss/count)
 		history['Gtrain_loss'].append(Gloss/count)
 		history['lr'].append(c_lrd)
