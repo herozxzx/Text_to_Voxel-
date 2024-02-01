@@ -1,5 +1,7 @@
 # Text_to_Voxel
 
+（物体を表現した語句に対する3Dデータの生成）
+
 This requires Kaolin(https://github.com/NVIDIAGameWorks/kaolin) pytorch packages.
 
 Environments: https://github.com/herozxzx/Text_to_Voxel/blob/master/setup.txt
